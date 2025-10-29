@@ -19,7 +19,7 @@ C++是什么？简单来说，C++是一种高级编程语言，它的源代码�
 
 C++基本语法：
 
-<img width="314" height="214" alt="image" src="https://github.com/user-attachments/assets/18119c6f-ae41-4f3e-a82c-af587c558b41" />
+<img width="311" height="241" alt="image" src="https://github.com/user-attachments/assets/7bca0c4f-57fe-4d1a-b9b8-a01ac2944a5d" />
 
 <img width="351" height="188" alt="image" src="https://github.com/user-attachments/assets/dfc4ae90-46ad-4f2f-93c9-91954150f56a" />
 
