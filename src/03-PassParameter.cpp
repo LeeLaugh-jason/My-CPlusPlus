@@ -1,10 +1,15 @@
 #include <iostream>
 
-int main() {
-    int a = 10;
-    int& r = a;   
-    
-    std::cout << &a << std::endl; // 地址①
-    std::cout << &r << std::endl; // 地址②
+void reset(int* p) {
+    if (p != nullptr) {
+        *p = 0;
+    }
+}
+
+int main(){
+    int a = 5;
+    reset(&a);    // 改成 0
+    std::cout << "a = " << a << std::endl;
+    reset(nullptr); // 不操作
     return 0;
 }
