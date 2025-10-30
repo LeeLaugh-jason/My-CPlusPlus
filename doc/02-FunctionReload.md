@@ -86,3 +86,92 @@ int main(){
 <img width="641" height="205" alt="image" src="https://github.com/user-attachments/assets/995f0220-55b6-4cdb-b0ab-073d3992cbf1" />
 
 编译器在选择函数时会进行两件事情：1.找到所有叫test的函数，2.看看那些能用实参int调用。发现有两个函数都可以调用，编译器无法决定谁更合适，于是出现了报错。
+
+### 拓展部分
+
+#### 隐式转换
+
+我们在学C语言的时候学过隐式类型转化，当类型不完全匹配的时候，编译器会自动帮我们把一种类型转换成另一种类型，比如：
+
+```
+int a = 3.14;
+```
+
+编译器会自动执行：
+
+```
+a = static_cast<int>(3.14);  // 自动完成 double -> int
+```
+
+而在重载中，可能出现传参无法完全匹配函数，那么编译器会自己选择函数去匹配：
+
+```
+void f(int x)    { cout << "f(int)" << endl; }
+void f(double x) { cout << "f(double)" << endl; }
+
+int main() {
+    f('A');
+}
+```
+
+<img width="458" height="36" alt="image" src="https://github.com/user-attachments/assets/7575246d-3345-48fb-a642-1eae61236f82" />
+
+可以看到它匹配到了int参数对应的函数。
+
+要理解这个行为不难，首先我们要知道隐式转换分为整形转化（仅针对整数类型）和算术转换（包含整数和浮点数）。而函数重载的转换规则则是从准确匹配到隐式转化流程到用户自定义转化逐步递减的。
+
+#### 默认参数
+
+默认参数如果同时在定义和声明写可能会报错，因为编译器在看待函数声明时就会记录默认值，如果在定义处看到另一个默认值会造成冲突。在编译的时候就会报错：
+
+<img width="812" height="121" alt="image" src="https://github.com/user-attachments/assets/a9c0e4b0-a08c-4583-a630-c1b121e9fbf6" />
+
+意思是：
+
+你在函数的‘声明’和‘定义’里，都给了同一个参数的默认值。编译器不知道该以哪个为准，因此报错。
+
+#### 函数模板
+
+首先讲讲函数模板出现的原因：
+
+```
+int myMax(int a, int b) {
+    return a > b ? a : b;
+}
+```
+
+我们定义了一个`int`返回值的myMax函数，如果我想再定义一个double的myMax函数，我需要再写一个定义：
+
+```
+double myMax(double a, double b) {
+    return a > b ? a : b;
+}
+```
+
+这样做太复杂，因为还可能添加float、char、long...
+
+因此函数模板诞生了，你可以把它理解为：类型的变量函数。char、int等是类型，而函数模板把这些类型当作变量，在编译的时候把它转化为实际的类型。
+
+```
+//源代码：
+template<typename T>
+T square(T x) { return x * x; }
+
+//编译器编译后：
+int square(int x) { return x * x; }
+//或者
+double square(double x) { return x * x; }
+```
+
+对于默认参数而言，函数模板会排在有确定类型的函数之后寻找，如下：
+
+```
+void print(int a) { cout << "普通函数\n"; }
+
+template<typename T>
+void print(T a) { cout << "模板函数\n"; }
+
+int main() {
+    print(5); // 调用形参为int对应的函数
+}
+```
