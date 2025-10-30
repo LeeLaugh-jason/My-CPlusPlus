@@ -1,10 +1,10 @@
 #include <iostream>
 using namespace std;
 
-int print(int a) {return a;}
-double print(int a) {return (double)a;}
+void test(int a);
+void test(int a, int b = 0);
 
-int main() {
-    print(10);
+int main(){
+    test(5);      
     return 0;
 }
