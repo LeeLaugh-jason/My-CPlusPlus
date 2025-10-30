@@ -1,0 +1,6 @@
+# Ignore build output directory
+out/
+
+# Ignore documentation directory
+doc/
+

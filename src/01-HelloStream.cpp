@@ -1,10 +1,11 @@
 #include <iostream>
 
 int main() {
-    std::ios::sync_with_stdio(false);
-    for (volatile int i = 0; i < 1000000; ++i){
-        std::cout << "Hello, Stream!" ;
-    }
+    int x=0;
+    std::cin >> x;
+    std::cin.sync();
+
+    std::cout << "Hello, Stream! You entered: " << x << std::endl;
     
     return 0;
 }
