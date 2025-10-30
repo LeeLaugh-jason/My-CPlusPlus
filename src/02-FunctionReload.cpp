@@ -1,10 +1,11 @@
 #include <iostream>
 using namespace std;
 
-void test(int a);
-void test(int a, int b = 0);
+void f(int x, int b = 10);
 
-int main(){
-    test(5);      
-    return 0;
+
+int main() {
+    f('A');
 }
+
+void f(int x, int b = 10)    { cout << "f(int)" << endl; }
