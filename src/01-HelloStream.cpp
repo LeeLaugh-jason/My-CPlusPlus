@@ -1,11 +1,15 @@
 #include <iostream>
+#include <unistd.h>
+
 
 int main() {
-    int x=0;
-    std::cin >> x;
-    std::cin.sync();
+    std::cout << "This is normal output." ;
+    sleep(5);
+    std::cout << std::endl;
 
-    std::cout << "Hello, Stream! You entered: " << x << std::endl;
-    
+    std::cerr << "This is an error message.";
+    sleep(5);
+    std::cout << std::endl;
+
     return 0;
 }
