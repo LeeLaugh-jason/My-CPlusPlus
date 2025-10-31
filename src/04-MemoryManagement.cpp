@@ -31,7 +31,7 @@ struct Demo {
     ~Demo() { cout << name << " 析构\n"; }
 };
 
-Demo h("全局变量");
+//Demo h("全局变量");
 
 void func2() {
     Demo local("局部变量");
@@ -40,10 +40,31 @@ void func2() {
     delete heap;
 }
 
+void func3() {
+    int* p = new int[5]; // 分配数组
+    for (int i = 0; i < 5; i++) p[i] = i * 10;
+    cout << "数组内容: ";
+    for (int i = 0; i < 5; i++) cout << p[i] << " ";
+    cout << endl;
+    delete[] p; // 释放数组
+}
+
+void func4() {
+    int* p = new int(10);
+
+    cout << "p 的地址（在栈上）: " << &p << endl;
+    cout << "p 指向的地址（在堆上）: " << p << endl;
+    cout << "堆中存的值: " << *p << endl;
+
+    delete p; // 释放单个整数
+}
+
 int main() {
     //func();
     //for (int i = 0; i < 3; i++) test();
-    func2();
-    cout << "main结束\n";
+    //func2();
+    //cout << "main结束\n";
+    //func3();
+    func4();
     return 0;
 }
