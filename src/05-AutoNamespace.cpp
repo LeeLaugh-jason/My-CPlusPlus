@@ -14,6 +14,13 @@ int x = 100; // 全局变量
 
 void Func2(){
     int x = 10;
+    int& ref = x;
+{
+    int x = 50; // 块作用域变量
+    std::cout << "块作用域变量x: " << x << std::endl; // 输出50
+    std::cout << "局部变量x: " << ref << std::endl; // 输出10
+    std::cout << "全局变量x: " << ::x << std::endl; // 输出100
+}
     std::cout << "局部变量x: " << x << std::endl; // 输出10
     std::cout << "全局变量x: " << ::x << std::endl; // 输出100
 }
