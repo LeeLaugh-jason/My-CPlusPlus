@@ -25,8 +25,17 @@ void Func2(){
     std::cout << "全局变量x: " << ::x << std::endl; // 输出100
 }
 
+void Func3(){
+    int x = 10;
+    {
+        int x = 50;
+        std::cout << x << std::endl; // 使用最内层的 x
+    }
+}
+
 int main() {
     //Func1();
-    Func2();
+    //Func2();
+    Func3();
     return 0;
 }
