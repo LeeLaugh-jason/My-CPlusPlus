@@ -33,9 +33,22 @@ void Func3(){
     }
 }
 
+namespace A {
+    int x = 10;
+    void print() {
+        std::cout << "A::x = " << x << std::endl;
+    }
+}
+
+namespace B {
+    int x = 20;
+    void print() {
+        std::cout << "B::x = " << x << std::endl;
+    }
+}
+
 int main() {
-    //Func1();
-    //Func2();
-    Func3();
+    A::print(); // 输出 A::x = 10
+    B::print(); // 输出 B::x = 20
     return 0;
 }
