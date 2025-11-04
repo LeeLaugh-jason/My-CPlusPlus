@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 
 
 void Func1(){
@@ -47,8 +47,61 @@ namespace B {
     }
 }
 
+namespace Outer {
+    int a = 1;
+
+    namespace Inner {
+        int b = 2;
+    }
+}
+
+namespace Log {
+    void info() { std::cout << "info\n"; }
+}
+
+namespace Log {
+    void error() { std::cout << "error\n"; }
+}
+
+int Func4() {
+    Log::info();
+    Log::error();
+    return 0;
+}
+
+namespace {
+    int secret = 42;
+    void helper() {
+        std::cout << "Hidden function\n";
+    }
+}
+
+int Func5() {
+    std::cout << secret << std::endl; // ✅ 可用
+    helper(); // ✅ 可用
+    return 0;
+}
+
+int Func6(){
+    std::vector<int> v = {1, 2, 3};
+    for (auto x : v) {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl;
+    return 0;
+}
+
+
 int main() {
-    A::print(); // 输出 A::x = 10
-    B::print(); // 输出 B::x = 20
+    //A::print(); // 输出 A::x = 10
+    //B::print(); // 输出 B::x = 20
+    //std::cout << Outer::a << std::endl;        // 1
+    //std::cout << Outer::Inner::b << std::endl; // 2
+    //Func5();
+    // auto x = 10;       // 编译器推断 x 是 int
+    // auto y = 3.14;     // 推断 y 是 double
+    // auto s = "hello";  // 推断 s 是 const char*
+    Func6(); // 使用
+    
     return 0;
 }
