@@ -21,3 +21,10 @@ int main() {
     s.introduce();  // 调用成员函数
     return 0;
 }
+namespace Outer {
+    int a = 1;
+
+    namespace Inner {
+        int b = 2;
+    }
+}
