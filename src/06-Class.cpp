@@ -13,7 +13,7 @@ public:               // 访问权限（public: 意味着外部可以访问）
     }
 };
 
-int main() {
+int main1() {
     Student s;      // 创建一个对象 s，类型是 Student
     s.name = "李笑";  // 访问成员变量
     s.age = 20;
@@ -27,4 +27,30 @@ namespace Outer {
     namespace Inner {
         int b = 2;
     }
+}
+
+class Students {
+public:
+    std::string name;
+    int *age;
+
+    // Students(std::string n, int a){
+    //     name = n;
+    //     age = new int(a);
+    // }
+
+    // ~Students(){
+    //     delete age;
+    // }
+
+    void introduce() {
+        std::cout << "我是 " << name << "，今年 " << *age << " 岁。" << std::endl;
+    }
+};
+
+int main() {
+    Students s("张三", 21);
+    s.introduce();
+    while(true);
+    return 0;
 }
