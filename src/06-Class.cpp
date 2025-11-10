@@ -49,7 +49,10 @@ public:
 };
 
 int main() {
-    Students s("张三", 21);
+    Students s;
+    s.name = "张三";
+    int age = 18;
+    s.age = &age;
     s.introduce();
     while(true);
     return 0;
