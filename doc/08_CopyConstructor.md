@@ -97,3 +97,56 @@ int main(){
 
 我们定义了一个与类的名字相同的函数，它的参数是只读的同一类的对象(other)的别名。
 
+只读是为了不改变传入对象的数据，而引用是为了防止无限递归：
+
+要解释无限递归，我们想想如果用值传递的方式传参会发生什么：
+
+```
+class Student{
+    int* ptr;
+
+    Student(int value){
+        ptr = new int(value);
+    }
+
+    Student(Student other){        //深度拷贝函数值传递
+        ptr = new int(value);
+    }
+
+    ~Student(){
+        delete ptr;
+    }
+}
+
+int main(){
+    Student s(10);
+    Student s1(s);
+}
+```
+
+这里我们的深度拷贝函数变成了值传递的方式，当我们定义s1时，传入参数是s，会进入到类中的拷贝函数。
+
+在拷贝函数中出现了这样子的参数：`Student other`，这句话实际上是创造了一个other【1】对象，使用s对它初始化。(由于比较复杂我们用【】表示不同的other)
+
+而我们要知道，在创建类的同时，会执行函数构造。因此，在执行other【1】对象的初始化过程中，会进入到`Student(Student other)`这个拷贝函数中，此时会创建一个other【2】对象。由于other【2】是other【1】的Student函数参数，使用的是s来初始化......
+
+
+```
+s1  <--初始化-- s
+|
+Student( other【1】) <--初始化-- s
+|
+Student( other【2】) <--初始化-- s
+...
+```
+
+就这样一直向前无限递归，最终程序会因为栈空间不足而退出。
+
+因此我们会使用引用传参：
+
+```
+Student(const Student& other){        //深度拷贝函数
+        ptr = new int(value);
+    }
+```
+此时传递给Student拷贝函数的参数是s的别名other，类似于`const Student& other = s`，拷贝函数不会再创建一个新的对象other，从而避免了无限递归的问题。
