@@ -83,9 +83,9 @@ class Base{
 总结来说：
 public：对外对内开放
 private：对内开放
-protected：对内开放
+protected：对内开放，对派生类开放
 
 这样我们继续往下，我们在本章的第一段长代码中出现了`class Dog : public Animal `的代码，这一段就是派生类(Dog)基于基类(Animal)声明的方式：
 通过`:`指定基类，可以选择继承的方式（public、private、protected）。
 
-当我们使用public继承的时候，基类中的public、protected对于派生类的访问权限与基类一
+当我们使用public继承的时候，基类中的public、protected对于派生类的访问权限与基类一致；当我们使用protected继承时，基类中的public、protected对于派生类的访问权限都是protected；当使用private继承时，基类中的public、protected对于派生类的访问权限都是private。
