@@ -1,3 +1,7 @@
+# 练习题
+
+## 题目
+
 ### 基础语法与函数（第1–3题）
 1. 温度转换器
 
@@ -94,5 +98,40 @@ double fahrenheitToCelsius(double f)
 在 main 中：
 
 创建一个 Circle 对象和一个 Square 对象
+
 分别通过基类指针调用 area() 并输出结果
+
 注意：不要用 vector 存多个对象，直接单个测试即可
+
+## 补充
+
+在做题的时候发现了一些之前没有关注到的语法点：
+
+### 友元函数
+
+这个函数是定义在类之外，在类中声明后，可以调用类中private和protected的成员的函数,常用于流式运算符重载。
+
+```
+class Number {
+private:
+    int value;
+
+public:
+    Number(int v) : value(v) {}
+    
+    // 必须在类中声明友元函数！
+    friend ostream& operator<<(ostream& os, const Number& num);
+};
+
+// 类外定义 - 不要加 friend，不要加 Number::
+ostream& operator<<(ostream& os, const Number& num) {
+    os << "Number value: " << num.value; // 可以访问私有成员 value
+    return os;
+}
+
+int main() {
+    Number num(100);
+    cout << num << endl; // 正确输出: Number value: 100
+    return 0;
+} 
+```
