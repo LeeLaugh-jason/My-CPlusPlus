@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 
-int main(){
+int main_vector(){
     std::vector<int> numbers = {1, 2, 3, 4, 5};
 
     std::cout << "Vector size: " << numbers.size() << std::endl;
@@ -43,3 +44,53 @@ int main(){
 
     return 0;
 }
+
+int main(){
+    std::deque<int> dq = {1, 2, 3, 4, 5};
+
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Element at index 2: " << dq[2] << std::endl;
+    std::cout << "Element at index 3: " << dq.at(3) << std::endl;
+    std::cout << "Front element: " << dq.front() << std::endl;
+    std::cout << "Back element: " << dq.back() << std::endl;
+    std::cout << "Deque size: " << dq.size() << std::endl;
+    std::cout << "Is deque empty? " << (dq.empty() ? "Yes" : "No") << std::endl;
+    std::cout << "Max size of deque: " << dq.max_size() << std::endl;
+
+    dq.push_back(6);
+    dq.push_front(0);
+    std::cout << "Deque after push_back and push_front: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+    dq.pop_back();
+    dq.pop_front();
+    std::cout << "Deque after pop_back and pop_front: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    dq.insert(dq.begin() + 2, 10);
+    std::cout << "Deque after insert 10 at index 2: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    dq.erase(dq.begin() + 2);
+    std::cout << "Deque after erase element at index 2: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    dq.clear();
+    std::cout << "Deque size after clear: " << dq.size() << std::endl;
+
+    return 0;
+}
+
