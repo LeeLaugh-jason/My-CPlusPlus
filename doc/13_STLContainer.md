@@ -128,3 +128,65 @@ for(const auto& num : numbers){
 
 在for的判断条件中，我们使用一个简化的代码替换了较为复杂的代码部分，并且能实现原来的功能。像这样的语法，
 由于它让我们的代码变得更加易读易写，而且底层逻辑不变的语法，我们叫做**语法糖**。
+
+2. std::deque
+
+这是双端队列，它在内存中的分布与一整块连续的vector不同。它在内存中由两个逻辑部分组成：中央控制数组(map)、多个固定大小的缓冲块(buffer)。缓冲块就是内存块，只是我们不是主动去管理而是自动管理的内存块，而是程序自动分配的内存。但是注意，vector、deque都是使用的堆区的内存。
+
+其中中央控制数组存储着指向每个buffer缓冲块的首地址。当调用deque时，中央控制数组首先初始化，在第一次插入数据的时候，首先分配一个空的缓冲块。由于数据是由map管理的，在deque的前后分配内存都会很方便，不需要改动中间的部分。
+
+双向队列的主要成员函数有：元素访问`dp[0]（不检查边界） dp.at()检查边界 dp.front() dp.back()`、容量管理`dp.empty()（是否为空） dp.size() dp.max_size()（最大可能大小）`、元素修改`push_front() push_back()（插入） pop_front() pop_back()（删除） insert() 插入 erase()删除 clear()` 
+
+其中max_size()表示这个容器在当前系统中理论上能容纳的最多元素。不需要过多关注这个函数其实很少用到。
+
+```
+int main(){
+    std::deque<int> dq = {1, 2, 3, 4, 5};
+
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Element at index 2: " << dq[2] << std::endl;
+    std::cout << "Element at index 3: " << dq.at(3) << std::endl;
+    std::cout << "Front element: " << dq.front() << std::endl;
+    std::cout << "Back element: " << dq.back() << std::endl;
+    std::cout << "Deque size: " << dq.size() << std::endl;
+    std::cout << "Is deque empty? " << (dq.empty() ? "Yes" : "No") << std::endl;
+    std::cout << "Max size of deque: " << dq.max_size() << std::endl;
+
+    dq.push_back(6);
+    dq.push_front(0);
+    std::cout << "Deque after push_back and push_front: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+    dq.pop_back();
+    dq.pop_front();
+    std::cout << "Deque after pop_back and pop_front: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    dq.insert(dq.begin() + 2, 10);
+    std::cout << "Deque after insert 10 at index 2: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    dq.erase(dq.begin() + 2);
+    std::cout << "Deque after erase element at index 2: ";
+    for(const auto& elem : dq){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    dq.clear();
+    std::cout << "Deque size after clear: " << dq.size() << std::endl;
+
+    return 0;
+}
+```
+
