@@ -148,7 +148,7 @@ int main_list(){
 
 #include <forward_list>
 
-int main(){
+int main_forward_list(){
     std::forward_list<int> flist1 = {1, 2, 3, 4, 5};
     std::forward_list<int> flist2(3, 10);
     for(const auto& elem : flist1){
@@ -225,6 +225,47 @@ int main(){
     flist1.unique();
     for(const auto& elem : flist1){
         std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+
+#include <array>
+
+int main(){
+    std::array<int, 5> arr = {1, 2, 3, 4, 5};
+    std::cout << "Array elements: ";
+    for(const auto& elem : arr){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Array size: " << arr.size() << std::endl;
+    std::cout << "First element: " << arr.front() << std::endl;
+    std::cout << "Last element: " << arr.back() << std::endl;
+    std::cout << "Element at index 2: " << arr.at(2) << std::endl;
+
+    try {
+        std::cout << "Element at index 10: " << arr.at(10) << std::endl;
+    } catch (const std::out_of_range& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    arr.fill(0);
+    std::cout << "Array size after clear: " << arr.size() << std::endl;
+
+    std::cout << "Is array empty? " << (arr.empty() ? "Yes" : "No") << std::endl;
+
+    arr.fill(20);
+
+    std::cout << "array.begin(): " << arr.begin() << std::endl;
+    std::cout << "array.end(): " << arr.end() << std::endl;
+
+    arr.fill(10);
+    std::cout << "Array after fill(10): ";
+    for(const auto& elem : arr){
+        std::cout << elem << " ";
     }
     std::cout << std::endl;
 
