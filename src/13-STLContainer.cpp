@@ -45,7 +45,7 @@ int main_vector(){
     return 0;
 }
 
-int main(){
+int main_deque(){
     std::deque<int> dq = {1, 2, 3, 4, 5};
 
     for(const auto& elem : dq){
@@ -94,3 +94,139 @@ int main(){
     return 0;
 }
 
+#include <list>
+
+int main_list(){
+    std::list<int> mylist = {1, 2, 3, 4, 5};
+    std::list<int> anotherList(mylist);
+    for(const auto& elem : anotherList){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    
+    mylist.push_back(6);
+    mylist.push_front(0);
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    int firstElem = mylist.front();
+    int lastElem = mylist.back();
+    std::cout << "First element: " << firstElem << ", Last element: " << lastElem << std::endl;
+
+    mylist.pop_back();
+    mylist.pop_front();
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    auto it = mylist.begin();
+    ++it; // Move to second element
+
+    std::cout << "it points to: " << *it << std::endl;
+
+    mylist.insert(it, 10); // Insert 10 before second element
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    mylist.erase(it); // Erase the element we just inserted
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    mylist.erase(mylist.begin(), mylist.end()); // Clear the list
+    std::cout << "List size after clear: " << mylist.size() << std::endl;
+    
+
+    return 0;
+}
+
+#include <forward_list>
+
+int main(){
+    std::forward_list<int> flist1 = {1, 2, 3, 4, 5};
+    std::forward_list<int> flist2(3, 10);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    for(const auto& elem : flist2){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    flist1.push_front(0);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    flist1.pop_front();
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    auto it = flist1.begin();
+    flist1.insert_after(it, 10);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    flist1.erase_after(it);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.insert_after(flist1.before_begin(), 20);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.insert_after(flist1.before_begin(), 20);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.remove(20);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.remove_if([](int value){ return value % 2 == 0; });
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.splice_after(flist1.before_begin(), flist2);
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.sort();
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    flist1.unique();
+    for(const auto& elem : flist1){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
