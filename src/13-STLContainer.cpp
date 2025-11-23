@@ -233,7 +233,7 @@ int main_forward_list(){
 
 #include <array>
 
-int main/*_array*/(){
+int main_array(){
     std::array<int, 5> arr = {1, 2, 3, 4, 5};
     std::cout << "Array elements: ";
     for(const auto& elem : arr){
@@ -272,8 +272,14 @@ int main/*_array*/(){
     return 0;
 }
 
-// #include <set>
+#include <set>
 
-// int main(){
-
-// }
+int main(){
+    std::set<int> myset = {5, 3, 8, 1, 4, 5};
+    for(const auto& elem : myset){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    
+    return 0;
+}
