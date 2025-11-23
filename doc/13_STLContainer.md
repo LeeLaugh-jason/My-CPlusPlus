@@ -139,57 +139,6 @@ for(const auto& num : numbers){
 
 其中max_size()表示这个容器在当前系统中理论上能容纳的最多元素。不需要过多关注这个函数其实很少用到。
 
-```
-int main(){
-    std::deque<int> dq = {1, 2, 3, 4, 5};
-
-    for(const auto& elem : dq){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-
-    std::cout << "Element at index 2: " << dq[2] << std::endl;
-    std::cout << "Element at index 3: " << dq.at(3) << std::endl;
-    std::cout << "Front element: " << dq.front() << std::endl;
-    std::cout << "Back element: " << dq.back() << std::endl;
-    std::cout << "Deque size: " << dq.size() << std::endl;
-    std::cout << "Is deque empty? " << (dq.empty() ? "Yes" : "No") << std::endl;
-    std::cout << "Max size of deque: " << dq.max_size() << std::endl;
-
-    dq.push_back(6);
-    dq.push_front(0);
-    std::cout << "Deque after push_back and push_front: ";
-    for(const auto& elem : dq){
-        std::cout << elem << " ";   
-    }
-    std::cout << std::endl;
-    dq.pop_back();
-    dq.pop_front();
-    std::cout << "Deque after pop_back and pop_front: ";
-    for(const auto& elem : dq){
-        std::cout << elem << " ";   
-    }
-    std::cout << std::endl;
-
-    dq.insert(dq.begin() + 2, 10);
-    std::cout << "Deque after insert 10 at index 2: ";
-    for(const auto& elem : dq){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-    dq.erase(dq.begin() + 2);
-    std::cout << "Deque after erase element at index 2: ";
-    for(const auto& elem : dq){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-    dq.clear();
-    std::cout << "Deque size after clear: " << dq.size() << std::endl;
-
-    return 0;
-}
-```
-
 3. std::list
 
 list是STL中的双向链表，链表的数据结构由一个一个节点构成。每个节点中存放着上一个节点的指针（**前驱指针**）、下一个节点的指针（**后继指针**）和本节点的数据。
@@ -199,58 +148,6 @@ list是STL中的双向链表，链表的数据结构由一个一个节点构成�
 不同于之前的vector和deque，双向链表支持直接修改中间的数据，而时间复杂度仅是O(1)。因为双向链表要在中间插入一个节点，只需要修改上下两个节点中指向彼此的指针就好，不需要修改这两个节点以外的内容。
 
 在STL的双向链表中，第一个节点的prev(前驱指针)和末尾的节点的next(后继指针)会指向空指针`nullptr`；也可能指向一个哨兵指针，哨兵指针的前驱指针指向第一个节点，后继指针指向最后一个节点，首尾是不相连的。
-
-```
-int main_list(){
-    std::list<int> mylist = {1, 2, 3, 4, 5};
-    std::list<int> anotherList(mylist);
-    for(const auto& elem : anotherList){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-    
-    mylist.push_back(6);
-    mylist.push_front(0);
-    for(const auto& elem : mylist){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-
-    int firstElem = mylist.front();
-    int lastElem = mylist.back();
-    std::cout << "First element: " << firstElem << ", Last element: " << lastElem << std::endl;
-
-    mylist.pop_back();
-    mylist.pop_front();
-    for(const auto& elem : mylist){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-
-    auto it = mylist.begin();
-    ++it; // Move to second element
-
-    std::cout << "it points to: " << *it << std::endl;
-
-    mylist.insert(it, 10); // Insert 10 before second element
-    for(const auto& elem : mylist){
-        std::cout << elem << " ";
-    }
-    std::cout << std::endl;
-
-    mylist.erase(it); // Erase the element we just inserted
-    for(const auto& elem : mylist){
-        std::cout << elem << " ";   
-    }
-    std::cout << std::endl;
-
-    mylist.erase(mylist.begin(), mylist.end()); // Clear the list
-    std::cout << "List size after clear: " << mylist.size() << std::endl;
-    
-
-    return 0;
-}
-```
 
 4. std::forward_list
 
