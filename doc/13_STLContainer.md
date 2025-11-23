@@ -190,3 +190,80 @@ int main(){
 }
 ```
 
+3. std::list
+
+list是STL中的双向链表，链表的数据结构由一个一个节点构成。每个节点中存放着上一个节点的指针（**前驱指针**）、下一个节点的指针（**后继指针**）和本节点的数据。
+
+由节点我们可以看出，链表不像vector和deque，可以从序列号直接得到某个序列号中的节点数据，不过我们可以使用指针遍历的方式查找某一个节点的内存：通过前驱指针和后继指针，可以做到从头向尾部遍历，也可以做到从尾部向头部遍历。
+
+不同于之前的vector和deque，双向链表支持直接修改中间的数据，而时间复杂度仅是O(1)。因为双向链表要在中间插入一个节点，只需要修改上下两个节点中指向彼此的指针就好，不需要修改这两个节点以外的内容。
+
+在STL的双向链表中，第一个节点的prev(前驱指针)和末尾的节点的next(后继指针)会指向空指针`nullptr`；也可能指向一个哨兵指针，哨兵指针的前驱指针指向第一个节点，后继指针指向最后一个节点，首尾是不相连的。
+
+```
+int main_list(){
+    std::list<int> mylist = {1, 2, 3, 4, 5};
+    std::list<int> anotherList(mylist);
+    for(const auto& elem : anotherList){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+    
+    mylist.push_back(6);
+    mylist.push_front(0);
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    int firstElem = mylist.front();
+    int lastElem = mylist.back();
+    std::cout << "First element: " << firstElem << ", Last element: " << lastElem << std::endl;
+
+    mylist.pop_back();
+    mylist.pop_front();
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    auto it = mylist.begin();
+    ++it; // Move to second element
+
+    std::cout << "it points to: " << *it << std::endl;
+
+    mylist.insert(it, 10); // Insert 10 before second element
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";
+    }
+    std::cout << std::endl;
+
+    mylist.erase(it); // Erase the element we just inserted
+    for(const auto& elem : mylist){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+
+    mylist.erase(mylist.begin(), mylist.end()); // Clear the list
+    std::cout << "List size after clear: " << mylist.size() << std::endl;
+    
+
+    return 0;
+}
+```
+
+4. std::forward_list
+
+这是STL容器中的单向链表，它的数据也是由一个一个节点串在一起的。不过相比于双向链表，单向链表的节点只有一个后继指针，数据只能找到它下一个数据的位置，而找不到它上一个数据在哪。
+
+此时你还可以在节点之间插入数据，但是在首节点之前如何插入数据呢？
+
+在单向链表中，有一个外部的的头指针`head`，它会指向第一个节点，这样在第一个节点前添加数据时，可以直接添加节点，然后让修改头指针指向这个节点即可。
+
+5. std::array
+
+这是STL中最像C语言中数据结构的一个容器：定长数组。
+
+它的大小在创建的时候就会定下，内存存储在栈上，使用方式也和C语言相似，可以实现多维数组。
+
+在C++中，STL为这个数组提供了整体赋值，拷贝，比较的功能。
