@@ -519,7 +519,56 @@ std::unordered_multimap
 
 与有序的关联式容器唯一区别在于：键被转化为了哈希值，从加快了查找、插入、删除其中某个键值对的时间复杂度（O(logn)-->O(1)）。而这个过程对我们透明，因此我们使用方式和之前相同，不过经过桶排序后数据变成无序的罢了。
 
+而如果需要使用自己创建的类的话，需要自己定义哈希函数：
+
+```
+struct Person {
+    std::string name;
+    int age;
+    bool operator==(const Person& other) const {
+        return name == other.name && age == other.age;
+    }
+};
+
+// 自定义哈希函数
+struct PersonHash {
+    std::size_t operator()(const Person& p) const {
+        return std::hash<std::string>()(p.name) ^ (std::hash<int>()(p.age) << 1);
+    }
+};
+
+int main() {
+    std::unordered_set<Person, PersonHash> people;
+    people.insert({"Alice", 30});
+    people.insert({"Bob", 25});
+
+    for (const auto& p : people) {
+        std::cout << p.name << ", " << p.age << "\n";
+    }
+    return 0;
+}
+```
+
 ### 如何选择容器？
 
 我们已经学到了这么多的容器，我们应该在什么时候选择某一个容器呢？
+
+我们可以使用**决策树**（不是机器学习中的模型，而是一种判断步骤）。
+
+```
+需要固定大小？ ── 是 ─→ std::array
+       ↓ 否
+需要键值对 or 唯一键？ ── 否 ─→ 序列式容器
+       ↓ 是
+需要有序？ ── 是 ─→ map / set
+       ↓ 否
+          ──→ unordered_map / unordered_set
+
+对于序列式容器：
+  需要随机访问？ ── 是 ─→ vector（首选）或 deque
+                ↓ 否
+  需要在头部频繁插入？ ── 是 ─→ deque
+                        ↓ 否
+                          ──→ list（仅当中间频繁插入/删除时）
+```
 
