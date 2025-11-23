@@ -274,12 +274,127 @@ int main_array(){
 
 #include <set>
 
-int main(){
+int main_set(){
     std::set<int> myset = {5, 3, 8, 1, 4, 5};
     for(const auto& elem : myset){
         std::cout << elem << " ";
     }
     std::cout << std::endl;
+
+    std::cout << "Set size: " << myset.size() << std::endl;
+    myset.insert(6);
+    std::cout << "Set after inserting 6: ";
+    for(const auto& elem : myset){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+    myset.erase(3);
+    std::cout << "Set after erasing 3: ";
+    for(const auto& elem : myset){
+        std::cout << elem << " ";   
+    }
+    std::cout << std::endl;
+    std::cout << "Is 4 in set? " << (myset.count(4) ? "Yes" : "No") << std::endl;
+    std::cout << "begin(): " << *myset.begin() << std::endl;
+    std::cout << "end(): " << *(--myset.end()) << std::endl;
+    std::cout << "rbegin(): " << *myset.rbegin() << std::endl;
+    std::cout << "rend(): " << *(--myset.rend()) << std::endl;
+
+    return 0;
+}
+
+#include <map>
+
+int main_map(){
+    std::map<std::string, int> mymap;
+    mymap["orange"] = 3;
+    mymap["apple"] = 1;
+    mymap["banana"] = 2;
     
+
+    for(const auto& pair : mymap){
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+
+    std::cout << "Map size: " << mymap.size() << std::endl;
+
+    mymap.erase("banana");
+    std::cout << "Map after erasing 'banana':" << std::endl;
+    for(const auto& pair : mymap){
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+
+    auto it = mymap.find("orange");
+    if(it != mymap.end()){
+        std::cout << "'orange' found with value: " << it->second << std::endl;
+    } else {
+        std::cout << "'orange' not found" << std::endl;
+    }
+
+    std::cout << "rbegin(): " << mymap.rbegin()->first << std::endl;
+    std::cout << "rend(): " << (--mymap.rend())->first << std::endl;
+
+    return 0;
+}
+
+#include <unordered_map>
+
+int main_unordered_map1(){
+    std::unordered_map<std::string, int> umap;
+    umap["cat"] = 1;
+    umap["dog"] = 2;
+    umap["bird"] = 3;
+
+    for(const auto& pair : umap){
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+
+    std::cout << "Unordered map size: " << umap.size() << std::endl;
+
+    umap.erase("dog");
+    std::cout << "Unordered map after erasing 'dog':" << std::endl;
+    for(const auto& pair : umap){
+        std::cout << pair.first << ": " << pair.second << std::endl;
+    }
+
+    auto it = umap.find("cat");
+    if(it != umap.end()){
+        std::cout << "'cat' found with value: " << it->second << std::endl;
+    } else {
+        std::cout << "'cat' not found" << std::endl;
+    }
+
+    
+
+    return 0;
+}
+
+#include <iostream>
+#include <unordered_set>
+#include <string>
+
+struct Person {
+    std::string name;
+    int age;
+    bool operator==(const Person& other) const {
+        return name == other.name && age == other.age;
+    }
+};
+
+// 自定义哈希函数
+struct PersonHash {
+    std::size_t operator()(const Person& p) const {
+        return std::hash<std::string>()(p.name) ^ (std::hash<int>()(p.age) << 1);
+    }
+};
+
+int main() {
+    std::unordered_set<Person, PersonHash> people;
+    people.insert({"Alice", 30});
+    people.insert({"Bob", 25});
+
+    for (const auto& p : people) {
+        std::cout << p.name << ", " << p.age << "\n";
+    }
     return 0;
 }
