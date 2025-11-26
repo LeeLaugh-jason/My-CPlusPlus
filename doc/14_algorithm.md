@@ -134,3 +134,79 @@ std::vector<int> v = {10, 4, 9, 1, 7, 3};
 Partially sorted vector (first 3 elements): 1 3 4 10 9 7 
 ```
 
+4. std::nth_element 选取容器中第k小的元素，将它放在序列中第k-1个位置。
+
+其序列前面的数字都小于它，后面的元素都大于等于它，但它们不是有序的。**仅仅完成list[k-1]=num(k)**
+
+时间按复杂度为O(1)
+
+5. std::is_sorted 检查是否排序
+
+函数输入一个序列的两端迭代器。输出一个bool变量
+
+如果序列中元素已排序好，那函数输出1；反之输出0。
+
+### 二分查找（要求已排序）
+
+1. std::binary_search 是否存在某个值
+
+输入：start迭代器、end迭代器、某个值
+
+输出：1（其中有这个值），0（没有这个值）
+
+2. std::lower_bound
+
+输入：对象的首尾迭代器，输入一个数值（可以不存在于对象容器内部）
+
+输出：第一个大于等于这个数的位置（迭代器）
+
+如果容器是降序排列，不能使用默认的这个函数，而是要更换comp比较器，如`std::greater<>()`，更换比较规则。
+
+3. std::upper_bound
+
+这个函数与lower_bound比较像，要默认使用的话，默认排序顺序必须是升序排序，如果要使用降序的话，要更换比较器comp，与上述一样。
+
+4。 std::equal_range 返回某个值在容器或序列中的范围
+
+输入一个两个迭代器，输入一个数字，可选择输入一个比较器。
+
+输出两个迭代器，分别代表这个数字在排序序列中的第一个位置(first)和最后一个位置(second)。其实是lower_bound和upper_bound的返回值
+
+```
+auto low = std::lower_bound(first, last, value);
+auto up  = std::upper_bound(first, last, value);
+// 等价于
+auto range = std::equal_range(first, last, value);
+// 此时 range.first == low, range.second == up
+```
+
+我们拿到这两个迭代器，想要输出就直接迭代就好。形式相当于在一个容器中的一个范围内迭代。
+
+### 集合操作（需有序）
+
+1. std::merge 合并两个有序序列
+
+输入两个有序序列的首尾迭代器，再输入一个能容下它们合并后序列的容器，可选comp比较器。
+
+merge内部实际上使用双指针归并的方式进行合并排序：两个序列都从开始的迭代器比较，谁小就先放到容器中，再对放入容器的原序列迭代器自增。
+
+得到的result序列也是有序的。不是单纯的拼接。
+
+2. std::set_union 取两个有序集合的并集
+
+输入与上述merge相同，输出一个合并后的有序序列。
+
+3. std::set_intersection / std::set_difference / std::set_symmetric_difference
+
+输入与上述相同，输出分别是：取两集合交集、差集(A - B)、对称差集（A ∪ B - A ∩ B）
+
+### 堆操作（默认大堆顶）
+
+我们在讲sort排序时，从混合排序中简单的了解了**堆**这个数据结构，它是一个完全二叉树，可以用序列将他表示出来。
+
+1. std::make_heap
+
+这个函数可以将一个vector序列默认变为一个最大堆，也可以传递comp比较器将序列变为最小堆。这样查询修改中间键时，时间复杂度从O(n)降低到O(logn)。
+
+2. std::push_heap
+
