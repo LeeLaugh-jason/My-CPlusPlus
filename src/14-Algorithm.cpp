@@ -28,6 +28,8 @@ int main(){
     }
     std::cout << std::endl;
 
+    std::cout << std::count(vec.begin(), vec.end(), 5) << " occurrences of 5 found." << std::endl;
+
     std::fill(vec.begin(), vec.end(), 0);
     std::cout << "Vector after fill with 0: ";
     for(const auto& num : vec){ 
