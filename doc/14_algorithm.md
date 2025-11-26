@@ -238,4 +238,117 @@ template< class RandomIt, class Compare >
 void pop_heap( RandomIt first, RandomIt last, Compare comp );
 ```
 
-4. std::
+4. std::sort_heap
+
+将堆排序为升序的序列（默认）。也可以定义或使用comp比较器指定为降序等。
+
+这个函数时间复杂度是O(n logn)，本质上是pop_heap函数调用n次。
+
+### 排列组合
+
+1. std::nextpermutation
+
+用于返回当前序列的**下一个字典序排列**。什么是字典序排列呢？字典序是的意思是，按照字典对单词排序那样，对同元素的序列进行排序的规则。
+
+比如：
+
+```
+A [1,2,3]
+B [1,3,2]
+```
+
+这两个序列按照字典序来比较，就是从首元素开始，每一位进行比较，当出现`2 < 3`这样一个序列(A)比另一个序列(B)的同位置元素大时时，
+就说另一个序列(B)的字典序大于这个序列(A).
+
+所以这里说的下一个字典序排列是对整个序列而言，而不是对序列中某些元素而言（和序列的算法区分开）。
+
+函数签名如下：
+
+```
+#include <algorithm>
+
+template<class BidirectionalIterator>
+bool next_permutation(BidirectionalIterator first, BidirectionalIterator last);
+
+template<class BidirectionalIterator, class Compare>
+bool next_permutation(BidirectionalIterator first, BidirectionalIterator last,
+                      Compare comp);
+```
+
+它可以自选自定义比较函数。函数输出一个bool变量：如果当前序列已经是字典序中的最大排列，则函数会将其重排为最小序列并返回false；否则变为下一个最大序列，返回true。
+
+这个函数如小标题所言，主要用于输出一整个序列所有的排列组合的情况
+
+```
+std::vector<int> v = {1, 2, 3};
+
+    do {
+        for (int x : v) std::cout << x << ' ';
+        std::cout << '\n';
+    } while (std::next_permutation(v.begin(), v.end()));
+```
+
+```
+1 2 3 
+1 3 2 
+2 1 3 
+2 3 1 
+3 1 2 
+3 2 1 
+```
+
+2. std::prev_permutatio
+
+和next_permutatio使用逻辑相反，总体上就是找字典序中前一个小的序列。
+
+函数签名：
+
+```
+template< class BidirIt >
+bool prev_permutation( BidirIt first, BidirIt last );
+
+template< class BidirIt, class Compare >
+bool prev_permutation( BidirIt first, BidirIt last, Compare comp );
+```
+
+### 比较器
+
+我们在上面的算法中经常见到比较器，这是个什么东西？
+
+我们先说到为什么会用到比较器。在排序和有序容器的算法中，函数(如：sort)并不关心其中存的是什么数据，它们只关心：
+
+**给定两个元素a和b，a是否应该排在b前面**仅此而已
+
+在sort函数中会调用我们的比较器：
+
+```
+if (comp(left_element, right_element)) {
+    // left_element < right_element（按你的规则）
+    // 把 left 放前面
+} else {
+    // 把 right 放前面
+}
+```
+
+所以你这时候懂了，比较器是用来说我的两个数的排序方式的。比较器中的内容可以是如下：
+
+```
+bool cmp(int a, int b) {
+    return a > b; // 降序
+}
+
+std::sort(arr, arr + n, cmp);
+```
+
+如果a>b，cmp函数返回true，反之返回false。对应着sort函数中的排序规则。
+
+在C++中为我们预定好了一些比较器，我们可以直接使用：
+
+```
+std::less<T>	        小于（默认）	a < b
+std::greater<T>	        大于	a > b
+std::less_equal<T>	小于等于	a <= b
+std::greater_equal<T>	大于等于	a >= b
+std::equal_to<T>	等于	a == b
+std::not_equal_to<T>	不等于	a != b
+```
