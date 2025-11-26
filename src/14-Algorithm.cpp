@@ -11,7 +11,7 @@ int main(){
     }
     std::cout << std::endl;
 
-    auto it = std::find(vec.begin(), vec.end(), 9);
+    auto it = std::find(vec.begin(), vec.end(), 5);
     std::cout << "vec end: " << *vec.end() << std::endl;
     if(it != vec.end()){
         std::cout << "Found element: " << *it << std::endl;
@@ -88,6 +88,41 @@ int main(){
     std::cout << "Sorted vector: ";
     for(const auto& num : vec){
         std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    
+    std::vector<int> vec2 = {3, 1, 4, 1, 5, 9, 4};
+
+    std::nth_element(vec2.begin(), vec2.begin() + 1, vec2.end());
+    std::cout << "Vector after nth_element (2nd smallest element at index 1): ";
+    for(const auto& num : vec2){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    if(std::is_sorted(vec2.begin(), vec2.end())){
+        std::cout << "vec2 is sorted." << std::endl;
+    } else {
+        std::cout << "vec2 is not sorted." << std::endl;
+    }
+
+    std::sort(vec2.begin(), vec2.end());
+    std::binary_search(vec2.begin(), vec2.end(), 5) ?
+        std::cout << "5 found in vec2 using binary search." << std::endl :
+        std::cout << "5 not found in vec2 using binary search." << std::endl;
+
+    std::lower_bound(vec2.begin(), vec2.end(), 4) != vec2.end() ?
+        std::cout << "Element >= 4 found: " << *std::lower_bound(vec2.begin(), vec2.end(), 4) << std::endl :
+        std::cout << "No element >= 4 found." << std::endl;
+
+    std::upper_bound(vec2.begin(), vec2.end(), 4) != vec2.end() ?
+        std::cout << "Element > 4 found: " << *std::upper_bound(vec2.begin(), vec2.end(), 4) << std::endl :
+        std::cout << "No element > 4 found." << std::endl;
+
+    auto range = std::equal_range(vec2.begin(), vec2.end(), 4);
+    std::cout << "Elements equal to 4: ";
+    for(auto it = range.first; it != range.second; ++it){
+        std::cout << *it << " ";
     }
     std::cout << std::endl;
 
