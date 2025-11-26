@@ -210,3 +210,32 @@ merge内部实际上使用双指针归并的方式进行合并排序：两个序
 
 2. std::push_heap
 
+用于将一个元素推入一个堆中。函数签名如下：
+
+```
+template< class RandomIt >
+void push_heap( RandomIt first, RandomIt last );
+
+template< class RandomIt, class Compare >
+void push_heap( RandomIt first, RandomIt last, Compare comp );
+```
+
+> 函数签名是编程中唯一用于确定一个函数的结构信息的概念。它会说明这个函数的名称和输入类型，以及这个函数是否是模板函数。
+
+>我们肯定在之前都有了解过函数声明，在函数声明的时候会准确说明函数的名称，输入类型和输出类型。它告诉编译器有这样一个函数存在，而且通常是人为手写的。
+
+>而函数签名中不包含返回类型。不同返回类型，相同函数名和输入类型的函数签名同时在头文件中会发生报错。通常是编译器自己生成的，因为函数定义中已经包含了函数签名需要的所有内容了。
+
+3. std::pop_heap
+
+将堆顶元素弹入到堆最底部中，并把其之前的数重新组堆。
+
+```
+template< class RandomIt >
+void pop_heap( RandomIt first, RandomIt last );
+
+template< class RandomIt, class Compare >
+void pop_heap( RandomIt first, RandomIt last, Compare comp );
+```
+
+4. std::
