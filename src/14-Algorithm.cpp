@@ -126,5 +126,93 @@ int main(){
     }
     std::cout << std::endl;
 
+    std::vector<int> vec3 = {1, 2, 3, 4, 5};
+    std::vector<int> vec4 = {4, 5, 6, 7, 8};
+    std::vector<int> intersection(10);
+    std::merge(vec3.begin(), vec3.end(), vec4.begin(), vec4.end(), intersection.begin());
+    std::cout << "Intersection of vec3 and vec4: ";
+    for(const auto& num : intersection){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    intersection.clear();
+    intersection.resize(10);
+    std::set_union(vec3.begin(), vec3.end(), vec4.begin(), vec4.end(), intersection.begin());
+    std::cout << "Union of vec3 and vec4: ";
+    for(const auto& num : intersection){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    intersection.clear();
+    intersection.resize(10);
+    std::set_intersection(vec3.begin(), vec3.end(), vec4.begin(), vec4.end(), intersection.begin());
+    std::cout << "Set intersection of vec3 and vec4: ";
+    for(const auto& num : intersection){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    intersection.clear();
+    intersection.resize(10);
+    std::set_difference(vec3.begin(), vec3.end(), vec4.begin(), vec4.end(), intersection.begin());
+    std::cout << "Set difference of vec3 and vec4 (vec3 - vec4): ";
+    for(const auto& num : intersection){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    intersection.clear();
+    intersection.resize(10);
+    std::set_symmetric_difference(vec3.begin(), vec3.end(), vec4.begin(), vec4.end(), intersection.begin());
+    std::cout << "Set symmetric difference of vec3 and vec4: ";
+    for(const auto& num : intersection){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    std::vector<int> vec5 = {3, 2, 5, 56, 23, 78, 12, 5};
+    std::make_heap(vec5.begin(), vec5.end());
+    std::cout << "Heap created from vec5: ";
+    for(const auto& num : vec5){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    vec5.push_back(22);
+    std::push_heap(vec5.begin(), vec5.end());
+    std::cout << "Heap after push_heap: ";
+    for(const auto& num : vec5){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    std::pop_heap(vec5.begin(), vec5.end());
+    vec5.pop_back();
+    std::cout << "Heap after pop_heap: ";
+    for(const auto& num : vec5){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+    std::sort_heap(vec5.begin(), vec5.end());
+    std::cout << "Sorted heap: ";
+    for(const auto& num : vec5){
+        std::cout << num << " ";
+    }
+    std::cout << std::endl;
+
+    std::vector<int> vec6 = {1, 2, 3, 4, 5};
+    std::sort(vec6.begin(), vec6.end());
+    do {
+        for(const auto& num : vec6){
+            std::cout << num << " ";
+        }
+        std::cout << std::endl;
+    } while(std::next_permutation(vec6.begin(), vec6.end()));
+    std::cout << "Previous permutations:" << std::endl;
+    std::sort(vec6.begin(), vec6.end(), std::greater<int>());
+    do {
+        for(const auto& num : vec6){
+            std::cout << num << " ";
+        }
+        std::cout << std::endl;
+    } while(std::prev_permutation(vec6.begin(), vec6.end()));
+    
+
     return 0;
 }
